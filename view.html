@@ -1,0 +1,30 @@
+<html>
+
+<head>
+    <script type='text/javascript' src='resources/jquery3.2.1.min.js'></script>
+    <script type='text/javascript' src='resources/angular.min.js'></script>
+    <script type='text/javascript' src='resources/ng-infinite-scroll.min.js'></script>
+    <script>
+        var myApp = angular.module('PublisherLP', ['infinite-scroll']);
+        myApp.controller('LPController', function ($scope) {
+            $scope.images = [1, 2, 3];
+
+            $scope.loadMore = function () {
+                var last = $scope.images[$scope.images.length - 1];
+                for (var i = 1; i <= 3; i++) {
+                    $scope.images.push(last + i);
+                }
+            };
+        });
+    </script>
+</head>
+
+<body ng-app='PublisherLP' ng-controller='LPController'>
+    <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
+        <div ng-repeat='image in images'>
+            <img ng-src='http://placehold.it/225x250&text={{image}}'>
+        </div>
+    </div>
+</body>
+
+</html>
