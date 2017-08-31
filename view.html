@@ -1,44 +1,240 @@
 <html>
 
 <head>
-    <script type='text/javascript' src='resources/jquery3.2.1.min.js'></script>
-    <script type='text/javascript' src='resources/angular.min.js'></script>
-    <script type='text/javascript' src='resources/ng-infinite-scroll.min.js'></script>
+    <script type='text/javascript' src='resources/javascripts/jquery3.2.1.min.js'></script>
+    <script type='text/javascript' src='resources/javascripts/angular.min.js'></script>
+    <script type='text/javascript' src='resources/bootstrap/bootstrap.min.js'></script>
+    <script type='text/javascript' src='resources/javascripts/ng-infinite-scroll.min.js'></script>
     <script>
         var myApp = angular.module('PublisherLP', ['infinite-scroll']);
         myApp.controller('LPController', function ($scope, $http) {
             $scope.offset = 0;
             $scope.stories = [];
+            $scope.loading = true;
             $scope.getStories = function () {
+                $scope.loading = true;
                 $http({
                     method: "GET",
                     url: "https://rio.quintype.io/api/v1/stories?limit=5&offset=" + $scope.offset
                 }).then(function (response) {
                     $scope.stories = $scope.stories.concat(response.data.stories);
                     $scope.offset = $scope.offset + 5;
-                    debugger;
+                    $scope.loading = false;
                 }, function myError(response) {
                     debugger;
                 });
             };
+            $scope.getStories();
         });
     </script>
+    <link rel="stylesheet" href="resources/bootstrap/bootstrap.min.css">
     <style>
         body {
             background-color: #f4f4f4;
+        }
 
+        .navbar {
+            background-color: #ffffff;
+            height: 89px;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar>span {
+            padding-top: 25px;
+        }
+
+        .quinttype_header {
+            font-family: Lato;
+            font-size: 32px;
+            font-weight: bold;
+            text-align: left;
+            color: #000000;
+            padding-top: 17px !important;
+            float: left;
+        }
+
+        .search_header {
+            float: right;
+        }
+
+        .main_content {
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        .fullwidth{
+            padding-left: 0px;
+            padding-right:30px
+        }
+        .fullwidth>img {
+            width: 100%;
+            height:100%;
+        }
+
+        .section_name {
+            font-family: Lato;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1.6px;
+            padding-top: 33px;
+            text-align: left;
+            color: #000000;
+        }
+
+        .section_name>u {
+            text-decoration: none;
+            border-bottom: 3px solid #edd30d;
+        }
+
+        .top_story_title {
+            padding-top:14px;
+            font-family: Lato;
+            font-size: 34px;
+            line-height: 1.24;
+            text-align: left;
+            color: #222222;
+            color: var(--black);
+        }
+
+        .top_story_body{
+            padding-top:19px;
+            font-family: Lato;
+            font-size: 18px;
+            line-height: 1.56;
+            text-align: left;
+            color: #5c5c5c;
+        }
+        
+        .top_story_author{
+            padding-top:46px;
+        }
+
+        .top_story {
+            background-color: white;
+            padding-left:0px;
+            height:120%;
+            margin-top:50px;
+            padding-right:0px;
+        }
+        .top_story_author_title{
+            font-family: Lato;
+            font-size: 18px;
+            text-align: left;
+            color: #818181;
+            padding-left:20px;
+            vertical-align: top;
+        }
+        .top_story_author_time{
+            float:left;
+            font-family: Lato;
+            font-size: 14px;
+            font-weight: 300;
+            text-align: left;
+            color: #3d3d3d;
+            padding-top:12px;
+            padding-left:20px;
+        }
+       
+        .left_story_title {
+            padding-top:14px;
+            font-family: Lato;
+            font-size: 34px;
+            line-height: 1.24;
+            text-align: left;
+            color: #222222;
+            color: var(--black);
+        }
+
+        .left_story_body{
+            padding-top:19px;
+            font-family: Lato;
+            font-size: 18px;
+            line-height: 1.56;
+            text-align: left;
+            color: #5c5c5c;
+        }
+        
+        .left_story_author{
+            padding-top:46px;
+        }
+
+        .left_story {
+            background-color: white;
+            padding-left:0px;
+            height:120%;
+            margin-top:50px;
+            padding-right:0px;
+        }
+        .left_story_author_title{
+            font-family: Lato;
+            font-size: 18px;
+            text-align: left;
+            color: #818181;
+            padding-left:20px;
+            vertical-align: top;
+        }
+        .left_story_author_time{
+            float:left;
+            font-family: Lato;
+            font-size: 14px;
+            font-weight: 300;
+            text-align: left;
+            color: #3d3d3d;
+            padding-top:12px;
+            padding-left:20px;
         }
     </style>
 </head>
 
 <body ng-app='PublisherLP' ng-controller='LPController'>
-    <div infinite-scroll='getStories()' infinite-scroll-distance='1' infinite-scroll-use-document-bottom=true>
-        <div ng-repeat='story in stories'>
-            <span> {{story.headline}} </span>
-            <div style='clear: both;'></div>
-        </div>
-        <div ng-show='LP.busy'>Loading data...</div>
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 navbar">
+        <span class="quinttype_header">  
+            <img src="./resources/images/menu.png" height=50px widht=30px />&nbsp;&nbsp;Quintype
+        </span>
+        <span class="search_header"><img src="./resources/images/search-icon.png" height=30px widht=30px /></span>
     </div>
+    <div class="main_content">
+        <div class="top_story col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth">
+                <img ng-src={{"https://quintype-01.imgix.net/"+stories[0]["hero-image-s3-key"]}} />
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth">
+                <div class="section_name">
+                    <u>{{stories[0]["sections"][0]["name"]}}</u>
+                </div>
+                <div class="top_story_title">{{stories[0]["headline"]}}</div>
+                <div class="top_story_body">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</div>
+                <div class="top_story_author">
+                    <span class="col-md-2 col-sm-2 col-lg-2 col-xs-2"><img src="./resources/images/author_image.jpg" height=96px width:55px /></span>
+                    <span class="top_story_author_title">{{stories[0]["author-name"]}}</span><br/>
+                    <span  class="top_story_author_time">Posted 2 min ago</span>
+                </div>
+            </div>
+        </div>
+        <div class="left_story col-md-3 col-sm-3 col-lg-3 col-xs-3">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 fullwidth" style="padding-right:0px !important;height:280px;">
+                <img ng-src={{"https://quintype-01.imgix.net/"+stories[1]["hero-image-s3-key"]}} />
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 fullwidth">
+                <div class="section_name">
+                    <u>{{stories[1]["sections"][1]["name"]}}</u>
+                </div>
+                <div class="left_story_title">{{stories[1]["headline"]}}</div>
+                <div class="left_story_body">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</div>
+                <div class="left_story_author">
+                    <span class="col-md-2 col-sm-2 col-lg-2 col-xs-2"><img src="./resources/images/author_image.jpg" height=96px width:55px /></span>
+                    <span class="left_story_author_title">{{stories[1]["author-name"]}}</span><br/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" infinite-scroll='getStories()' infinite-scroll-distance='1' infinite-scroll-use-document-bottom=true>
+            <div ng-repeat='story in stories'>
+                <span> {{story.headline}} </span>
+                <div style='clear: both;'></div>
+            </div>
+            <div ng-show='loading'>Loading data...</div>
+        </div>
+    </div>
+
 </body>
 
 </html>
