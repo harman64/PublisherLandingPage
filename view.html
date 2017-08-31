@@ -6,24 +6,33 @@
     <script type='text/javascript' src='resources/ng-infinite-scroll.min.js'></script>
     <script>
         var myApp = angular.module('PublisherLP', ['infinite-scroll']);
-        myApp.controller('LPController', function ($scope) {
-            $scope.images = [1, 2, 3];
-
-            $scope.loadMore = function () {
-                var last = $scope.images[$scope.images.length - 1];
-                for (var i = 1; i <= 3; i++) {
-                    $scope.images.push(last + i);
-                }
+        myApp.controller('LPController', function ($scope, $http) {
+            $scope.offset = 0;
+            $scope.getStories = function () {
+                debugger;
+                $http({
+                    method: "GET",
+                    url: "https://rio.quintype.io/api/v1/stories?limit=5&offset=" + $scope.offset,
+                    headers: { 
+                        'Content-Type': 'application/json', 
+                        'Access-Control-Allow-Origin': "*" }
+                }).then(function (data) {
+                    debugger;
+                }, function myError(response) {
+                    debugger;
+                });
             };
         });
     </script>
 </head>
 
 <body ng-app='PublisherLP' ng-controller='LPController'>
-    <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
-        <div ng-repeat='image in images'>
-            <img ng-src='http://placehold.it/225x250&text={{image}}'>
+    <div infinite-scroll='getStories()' infinite-scroll-distance='1' infinite-scroll-use-document-bottom=true>
+        <div ng-repeat='story in LP.stories'>
+            <span> {{story.headline}} </span>
+            <div style='clear: both;'></div>
         </div>
+        <div ng-show='LP.busy'>Loading data...</div>
     </div>
 </body>
 
