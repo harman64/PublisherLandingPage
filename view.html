@@ -8,15 +8,14 @@
         var myApp = angular.module('PublisherLP', ['infinite-scroll']);
         myApp.controller('LPController', function ($scope, $http) {
             $scope.offset = 0;
+            $scope.stories = [];
             $scope.getStories = function () {
-                debugger;
                 $http({
                     method: "GET",
-                    url: "https://rio.quintype.io/api/v1/stories?limit=5&offset=" + $scope.offset,
-                    headers: { 
-                        'Content-Type': 'application/json', 
-                        'Access-Control-Allow-Origin': "*" }
-                }).then(function (data) {
+                    url: "https://rio.quintype.io/api/v1/stories?limit=5&offset=" + $scope.offset
+                }).then(function (response) {
+                    $scope.stories = $scope.stories.concat(response.data.stories);
+                    $scope.offset = $scope.offset + 5;
                     debugger;
                 }, function myError(response) {
                     debugger;
@@ -24,11 +23,17 @@
             };
         });
     </script>
+    <style>
+        body {
+            background-color: #f4f4f4;
+
+        }
+    </style>
 </head>
 
 <body ng-app='PublisherLP' ng-controller='LPController'>
     <div infinite-scroll='getStories()' infinite-scroll-distance='1' infinite-scroll-use-document-bottom=true>
-        <div ng-repeat='story in LP.stories'>
+        <div ng-repeat='story in stories'>
             <span> {{story.headline}} </span>
             <div style='clear: both;'></div>
         </div>
