@@ -229,6 +229,23 @@
             color: #ffffff;
             padding-bottom:30px;
         }
+        .mustRead{
+            font-family: Lato;
+            font-size: 34px;
+            font-weight: bold;
+            letter-spacing: -0.3px;
+            text-align: center;
+            color: #ffffff;
+            padding-top:38px;
+        }
+        .mustRead_text{
+            font-family: Lato;
+            font-size: 38px;
+            line-height: 1.32;
+            text-align: center;
+            color: #ffffff;
+            margin-top:37px;
+        }
     </style>
 </head>
 
@@ -296,10 +313,15 @@
               <input style=" border-radius: 100px;border: solid 1.5px #ffffff;background-color: #2f73e4;color: white;font-family: Lato;font-size: 16px;font-weight: 500;padding-top: 5px;padding-bottom: 5px;margin-top: 30px;" <="" div="" value="    Subscribe    " type="button">
             </div>
         </div>
-        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" style="background-color:#192d4f">
-<img class="col-md-1 col-sm-1 col-lg-1 col-xs-1" src="./resources/images/left-arrow.png" />
-<div class="col-md-10 col-sm-10 col-lg-10 col-xs-10"></div>
-<img class="col-md-1 col-sm-1 col-lg-1 col-xs-1" src="./resources/images/right-arrow.png" />
+        <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" style="background-color:#192d4f;margin-top:50px">
+<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1" style="padding-top:12%"><img src="./resources/images/left-arrow.png" /></div>
+<div class="col-md-10 col-sm-10 col-lg-10 col-xs-10">
+    <div class="mustRead" >Must Reads</div>
+    <div class="mustRead_text">Lin-Manuel Miranda says Donald Trump is spreading ‘a virulent strain of a virus’</div>
+    <div class="mustRead" ><input style=" border-radius: 100px;border: solid 1.5px #ffffff;background-color: #192d4f;color: white;font-family: Lato;font-size: 16px;font-weight: 500;padding-top: 5px;padding-bottom: 5px;margin-top: 30px;margin-bottom:57px;" <="" div="" value="    READ STORY    " type="button"></div>
+
+</div>
+<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1" style="padding-top:12%"><img src="./resources/images/right-arrow.png" /></div>
         </div>
         
         <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" infinite-scroll='getStories()' infinite-scroll-distance='1' infinite-scroll-use-document-bottom=true>
