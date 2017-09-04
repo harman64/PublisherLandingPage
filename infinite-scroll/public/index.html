@@ -12,22 +12,26 @@
             $scope.stories = [];
             $scope.loading = true;
             $scope.completed=false;
+            $scope.busy=false;
             $scope.getStories = function () {
+                if($scope.busy)return;
+                $scope.busy=true;
                 if(!$scope.completed){
                 $scope.loading = true;
                     $http({
                         method: "GET",
-                        url: "http://localhost:3000/getStories?limit=10&offset=" + $scope.offset
+                        url: "https://boiling-savannah-86399.herokuapp.com/getStories?limit=10&offset=" + $scope.offset
                     }).then(function (response) {
-                        debugger;
                         if(response.data.stories.length==0){
                             $scope.completed=true;
+                             $scope.busy=true;
                         }
                         $scope.stories = $scope.stories.concat(response.data.stories);
                         $scope.offset = $scope.offset + 10;
                         $scope.loading = false;
+                        $scope.busy=false;
                     }, function myError(response) {
-                        debugger;
+                       console.log(response);
                     });
                 }
             };
