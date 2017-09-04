@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <script type='text/javascript' src='resources/javascripts/jquery3.2.1.min.js'></script>
     <script type='text/javascript' src='resources/javascripts/angular.min.js'></script>
     <script type='text/javascript' src='resources/bootstrap/bootstrap.min.js'></script>
@@ -11,27 +12,27 @@
             $scope.offset = 0;
             $scope.stories = [];
             $scope.loading = true;
-            $scope.completed=false;
-            $scope.busy=false;
+            $scope.completed = false;
+            $scope.busy = false;
             $scope.getStories = function () {
-                if($scope.busy)return;
-                $scope.busy=true;
-                if(!$scope.completed){
-                $scope.loading = true;
+                if ($scope.busy) return;
+                $scope.busy = true;
+                if (!$scope.completed) {
+                    $scope.loading = true;
                     $http({
                         method: "GET",
                         url: "https://boiling-savannah-86399.herokuapp.com/getStories?limit=10&offset=" + $scope.offset
                     }).then(function (response) {
-                        if(response.data.stories.length==0){
-                            $scope.completed=true;
-                             $scope.busy=true;
+                        if (response.data.stories.length == 0) {
+                            $scope.completed = true;
+                            $scope.busy = true;
                         }
                         $scope.stories = $scope.stories.concat(response.data.stories);
                         $scope.offset = $scope.offset + 10;
                         $scope.loading = false;
-                        $scope.busy=false;
+                        $scope.busy = false;
                     }, function myError(response) {
-                       console.log(response);
+                        console.log(response);
                     });
                 }
             };
@@ -39,7 +40,7 @@
         });
     </script>
     <link rel="stylesheet" href="resources/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="resources/images/main.css">
 </head>
 
 <body ng-app='PublisherLP' ng-controller='LPController'>
@@ -49,7 +50,7 @@
         </span>
         <span class="search_header"><img src="./resources/images/search-icon.png" height=30px widht=30px /></span>
     </div>
-   
+
     <div class="main_content">
         <div class="top_story col-md-12 col-sm-12 col-lg-12 col-xs-12">
             <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth imgHeight">
@@ -107,7 +108,7 @@
                 <img src="./resources/images/newsletter.png" style="padding-top:25px;padding-bottom: 7px;" />
                 <div class="newsletter_text">Subscribe to Newsletter</div>
                 <div>
-                <input type="input" placeholder="Your Email" style="width: 300px;border-radius: 0px;" />
+                    <input type="input" placeholder="Your Email" style="width: 80%;border-radius: 0px;" />
                 </div>
                 <input style=" border-radius: 100px;border: solid 1.5px #ffffff;background-color: #2f73e4;color: white;font-family: Lato;font-size: 16px;font-weight: 500;padding-top: 5px;padding-bottom: 5px;margin-top: 30px;"
                     <="" div="" value="    Subscribe    " type="button">
@@ -125,7 +126,8 @@
             <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1 mustRead_img"><img src="./resources/images/right-arrow.png" /></div>
         </div>
     </div>
-    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 recentStories" infinite-scroll='getStories()'  infinite-scroll-distance='0'  style="padding-left: 5%;padding-right: 5%;">
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 recentStories" infinite-scroll='getStories()' infinite-scroll-distance='0'
+        style="padding-left: 5%;padding-right: 5%;">
         <div class="recentStories_text">
             <u>Recent Stories</u>
         </div>
@@ -146,10 +148,10 @@
                 </div>
             </div>
         </div>
-          <div style='clear: both;'></div>
+        <div style='clear: both;'></div>
         <div ng-show='loading'>Loading data...</div>
     </div>
-     <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 footer">
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 footer">
         <span class="quinttype_header">  
             <img src="./resources/images/footer_icon.png"/>
         </span>
