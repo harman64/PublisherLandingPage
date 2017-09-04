@@ -15,10 +15,11 @@
                 $scope.loading = true;
                 $http({
                     method: "GET",
-                    url: "https://rio.quintype.io/api/v1/stories?limit=5&offset=" + $scope.offset
+                    url: "https://rio.quintype.io/api/v1/stories?limit=10&offset=" + $scope.offset
                 }).then(function (response) {
+                    debugger;
                     $scope.stories = $scope.stories.concat(response.data.stories);
-                    $scope.offset = $scope.offset + 5;
+                    $scope.offset = $scope.offset + 10;
                     $scope.loading = false;
                 }, function myError(response) {
                     debugger;
@@ -31,6 +32,7 @@
     <style>
         body {
             background-color: #f4f4f4;
+            font-family: Lato;
         }
 
         .navbar {
@@ -44,8 +46,6 @@
         }
 
         .quinttype_header {
-            font-family: Lato;
-            font-size: 32px;
             font-weight: bold;
             text-align: left;
             color: #000000;
@@ -73,8 +73,6 @@
         }
 
         .top_story_section_name {
-            font-family: Lato;
-            font-size: 18px;
             font-weight: bold;
             letter-spacing: 1.6px;
             padding-top: 33px;
@@ -89,18 +87,13 @@
 
         .top_story_title {
             padding-top: 14px;
-            font-family: Lato;
-            font-size: 34px;
             line-height: 1.24;
             text-align: left;
             color: #222222;
-            color: var(--black);
         }
 
         .top_story_body {
             padding-top: 19px;
-            font-family: Lato;
-            font-size: 18px;
             line-height: 1.56;
             text-align: left;
             color: #5c5c5c;
@@ -113,29 +106,22 @@
         .top_story {
             background-color: white;
             padding-left: 0px;
-            max-height: 120%;
             margin-top: 50px;
             padding-right: 0px;
         }
 
         .top_story_author_title {
-            font-family: Lato;
-            font-size: 18px;
             text-align: left;
             color: #818181;
-            padding-left: 20px;
             vertical-align: top;
         }
 
         .top_story_author_time {
             float: left;
-            font-family: Lato;
-            font-size: 14px;
             font-weight: 300;
             text-align: left;
             color: #3d3d3d;
             padding-top: 12px;
-            padding-left: 20px;
         }
 
         .left_story_title {
@@ -316,6 +302,107 @@
             padding-top: 10px;
             padding-bottom: 17px;
         }
+        .widthcheck{
+            width:17%;
+        }
+        
+        /* For tablets: */
+        @media only screen and (min-width: 600px) {
+            .quinttype_header {
+                font-size: 22px;
+            }
+            .top_story_section_name {
+                font-size: 12px;
+            }
+            .top_story_title {
+                font-size: 22px;
+            }
+            .top_story_body {
+                font-size: 12px;
+            }
+            .top_story_author_title {
+                font-size: 12px;       
+            }
+            .top_story_author_time {
+                font-size: 10px;
+                display:none;
+            }
+            .top_story{
+                height:420px;
+            }
+            .widthcheck{
+                padding-left:0px;
+            }
+            .top_story_author {
+                padding-top: 20px;
+            }
+        }
+        /* For desktop: */
+        @media only screen and (min-width: 768px) {
+            .quinttype_header {
+                font-size: 32px;
+            }
+            .top_story_section_name {
+                font-size: 18px;
+            }
+            .top_story_title {
+                font-size: 34px;
+            }
+            .top_story_body {
+                font-size: 18px;
+            }
+            .top_story_author_title {
+                font-size: 18px;
+            }
+            .top_story_author_time {
+                font-size: 14px;
+            }
+            .top_story{
+                height:470px;
+            }
+        }
+        /* For mobiles: */
+        @media only screen and (max-width: 600px) {
+            .quinttype_header {
+                font-size: 22px;
+            }
+            .top_story_section_name {
+                font-size: 16px;
+                padding-left:30px;
+            }
+            .top_story_title {
+                font-size: 26px;
+                padding-left:30px;
+            }
+            .top_story_body {
+                display:none;
+                padding-left:30px;
+            }
+            .top_story_author_title {
+                font-size: 16px;
+            }
+            .top_story_author_time {
+                display:none;
+                font-size: 14px;
+            }
+            .top_story{
+                height:900px;
+            }
+            [class*="col-x"] {
+                width: 100%;
+            }
+            .fullwidth{
+                padding-right:0px;
+                
+            }
+            .imgHeight{
+                height:430px;
+            }
+            .top_story_author {
+                padding-top: 16px;
+                padding-left:20px;
+            }
+        }
     </style>
 </head>
 
@@ -326,10 +413,10 @@
         </span>
         <span class="search_header"><img src="./resources/images/search-icon.png" height=30px widht=30px /></span>
     </div>
-    <div ng-show='loading'>Loading data...</div>
-    <div  ng-show='!loading' class="main_content">
-        <div class="top_story col-md-12 col-sm-12 col-lg-12 col-xs-12" style="height:470px;">
-            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth">
+   
+    <div class="main_content">
+        <div class="top_story col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth imgHeight">
                 <img ng-src={{"https://quintype-01.imgix.net/"+stories[0]["hero-image-s3-key"]}} />
             </div>
             <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6 fullwidth">
@@ -340,7 +427,7 @@
                 <div class="top_story_body">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took
                     a galley of type and scrambled.</div>
                 <div class="top_story_author">
-                    <span class="col-md-2 col-sm-2 col-lg-2 col-xs-2"><img src="./resources/images/author_image.jpg" height=96px width:55px /></span>
+                    <span class="col-md-2 col-lg-2 col-sm-2 widthcheck"><img src="./resources/images/author_image.jpg" height=96px width:55px /></span>
                     <span class="top_story_author_title">{{stories[0]["author-name"]}}</span><br/>
                     <span class="top_story_author_time">Posted 2 min ago</span>
                 </div>
@@ -399,8 +486,7 @@
             <div class="col-md-1 col-sm-1 col-lg-1 col-xs-1" style="padding-top:12%"><img src="./resources/images/right-arrow.png" /></div>
         </div>
     </div>
-    <div  ng-show='!loading' class="col-md-12 col-sm-12 col-lg-12 col-xs-12 recentStories" infinite-scroll='getStories()' infinite-scroll-distance='1'
-        infinite-scroll-use-document-bottom=true style="padding-left: 5%;padding-right: 5%;">
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12 recentStories" infinite-scroll='getStories()'  infinite-scroll-distance='0'  style="padding-left: 5%;padding-right: 5%;">
         <div class="recentStories_text">
             <u>Recent Stories</u>
         </div>
@@ -420,8 +506,9 @@
                     </div>
                 </div>
             </div>
-            <div style='clear: both;'></div>
         </div>
+          <div style='clear: both;'></div>
+        <div ng-show='loading'>Loading data...</div>
     </div>
 
 </body>
